@@ -13,7 +13,7 @@ while os.path.isfile('test_q.txt') == True:
         break
 else:
     questions = [['What is the color of the sky?','blue'],['What is the answer to the universe?','42']]
-            
+
 def random_distractors(answer):
     randQuesL = []
     randAnswL = [answer]
@@ -22,7 +22,7 @@ def random_distractors(answer):
     while index < len(questions):
         randQuesL.append(questions[index][1])
         index += 1
-    
+
     while len(randAnswL) < 4:
         a = random.choice(randQuesL)
         randS = set(randAnswL)
@@ -30,7 +30,7 @@ def random_distractors(answer):
         randAnswL = list(randS)
 
     index = 0
-    
+
     while index < 4:
         dist = random.choice(randAnswL)
         randS = set(randAnswL)
@@ -86,7 +86,7 @@ def add_question():
             continue
         if choice == 'n':
             break
-        
+
 def remove_question():
     q = 0
     index = 1
@@ -144,7 +144,7 @@ def run_test(questions):
     index = 0
     right = 0
     while index < len(questions):
-        if check_question(questions[index]):            
+        if check_question(questions[index]):
             right += 1
         index += 1
         print 'You got', right * 100 / len(questions),'% right out of', len(questions)
@@ -162,7 +162,7 @@ def get_questions(x):
         with open('test_q.txt','w') as f:
             for line in questions:
                 f.write('%s\n'%line)
-                
+
 def menu():
     print '-' * 25
     print 'Menu: '
@@ -191,9 +191,9 @@ def main():
             menu()
         elif choice == '5':
             remove_question()
-        print '\n'        
+        print '\n'
         choice = raw_input('Choose your option from the menu above: ')
         print '\n'
-        
+
 if __name__ == '__main__':
     main()
