@@ -21,11 +21,13 @@ def random_distractors(answer):
     randAnswL = [answer]
     newL = []
     index = 0
-    while index < len(questions):
+    numQuestions = len(questions)
+    while index < numQuestions:
         randQuesL.append(questions[index][1])
         index += 1
 
-    while len(randAnswL) < 4:
+    while len(randAnswL) < 4 and len(randAnswL) != numQuestions:
+        # handle the case when there are fewer than four questions
         a = random.choice(randQuesL)
         randS = set(randAnswL)
         randS.add(a)
@@ -33,7 +35,7 @@ def random_distractors(answer):
 
     index = 0
 
-    while index < 4:
+    while index < 4 and index != numQuestions:
         dist = random.choice(randAnswL)
         randS = set(randAnswL)
         randS.remove(dist)
