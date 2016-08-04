@@ -52,7 +52,7 @@ def random_distractors(answer):
             D = dist
         index += 1
 
-    usersInput = raw_input('>>> ')
+    userInput = raw_input('>>> ')
     if userInput == 'A':
         return A
     if userInput == 'B':
