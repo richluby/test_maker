@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os
+import os, sys
 import random
 
 while os.path.isfile('test_q.txt') == True:
@@ -141,7 +141,7 @@ def showQuestions():
         q += 1
         index += 1
 
-def run_test(questions):
+def run_test():
     if len(questions) == 0:
         print 'No questions were given.'
         return
@@ -167,37 +167,33 @@ def get_questions(x):
             for line in questions:
                 f.write('%s\n'%line)
 
-def menu():
+def menu(menuItems):
     print '-' * 25
     print 'Menu: '
-    print '1 - Take the test'
-    print '2 - View a list of questions and answers'
-    print '3 - View the menu'
-    print '4 - Add Question'
-    print '5 - Remove Question'
-    print '6 - Quit'
+    for index, item in enumerate(menuItems):
+            print "{} - {}".format(index + 1, item[0])
     print '-' * 25
 
 def main():
 ##    random_distractors('blue')
     choice = '3'
-    while choice != '6':
-        if choice == '1':
-            run_test(questions)
-            menu()
-        elif choice == '2':
-            showQuestions()
-            menu()
-        elif choice == '3':
-            menu()
-        elif choice == '4':
-            add_question()
-            menu()
-        elif choice == '5':
-            remove_question()
+    # contains the menu items, along with the related function/method to be called
+    # arguments to the method should go in the tuple directly after the method name
+    menuItems = [('Take the test', run_test),
+            ('View a list of questions and answers', showQuestions),
+            ('Add Question', add_question),
+            ('Remove Question', remove_question),
+            ('Quit', sys.exit)]
+    while True:
+        menu(menuItems)
         print '\n'
-        choice = raw_input('Choose your option from the menu above: ')
+        choice = int(raw_input('Choose your option from the menu above: '))
         print '\n'
+        if len(menuItems) >= choice > 0:
+            if len(menuItems[choice-1]) <= 2:
+                menuItems[choice-1][1]()
+            else: # handles the case when a method wants arguments
+                menuItems[choice-1][1](menuItems[choice-1][2:])
 
 if __name__ == '__main__':
     main()
